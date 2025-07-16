@@ -43,9 +43,26 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
             font-size: 1.8rem;
             font-weight: bold;
             color: white;
+        }
+
+        .logo-img {
+            height: 150px;
+            width: auto;
+            margin-right: 15px;
+            border-radius: 5px;
+            /* Add a subtle white background for better visibility */
+            background: rgba(255,255,255,0.1);
+            padding: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
         }
 
         .nav-links {
@@ -250,6 +267,44 @@
             transform: scale(1.02);
         }
 
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-overlay h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.2rem;
+        }
+
+        .gallery-overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
         .gallery-placeholder {
             width: 100%;
             height: 100%;
@@ -380,6 +435,16 @@
             .section-title {
                 font-size: 2rem;
             }
+
+            /* Mobile logo adjustments */
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .logo-img {
+                height: 40px;
+                margin-right: 10px;
+            }
         }
 
         /* Smooth scrolling */
@@ -404,7 +469,11 @@
     <!-- Header -->
     <header>
         <nav class="container">
-            <div class="logo">F&P Drenica Bau</div>
+            <div class="logo">
+                <!-- Add your logo image here - replace with your actual logo file path -->
+                <img src="logo/fp-drenica-logo.png" alt="F&P Drenica Bau Logo" class="logo-img">
+                <span class="logo-text">F&P Drenica Bau</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Startseite</a></li>
                 <li><a href="#about">Über uns</a></li>
@@ -484,7 +553,9 @@
         <div class="container">
             <h2 class="section-title fade-in">Projekt-Galerie</h2>
             <div class="gallery-grid">
+                <!-- You can replace these placeholders with real images when you upload them -->
                 <div class="gallery-item fade-in">
+                    <!-- Example: <img src="images/gallery/trockenbau1.jpg" alt="Trockenbau Projekt"> -->
                     <div class="gallery-placeholder">Trockenbau-Projekt<br>Vorher/Nachher</div>
                 </div>
                 <div class="gallery-item fade-in">
@@ -524,36 +595,46 @@
                 </div>
                 
                 <div class="contact-form fade-in">
-                    <form onsubmit="handleSubmit(event)">
+                    <form id="contact-form">
                         <div class="form-group">
-                            <label for="name">Name *</label>
-                            <input type="text" id="name" name="name" required>
+                            <label for="from_name">Name *</label>
+                            <input type="text" id="from_name" name="from_name" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="contact">E-Mail oder Telefonnummer *</label>
-                            <input type="text" id="contact" name="contact" required>
+                            <label for="from_email">E-Mail *</label>
+                            <input type="email" id="from_email" name="from_email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Telefonnummer</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+49 123 456 789">
                         </div>
                         
                         <div class="form-group">
                             <label for="service">Gewünschte Dienstleistung</label>
                             <select id="service" name="service">
                                 <option value="">Bitte wählen...</option>
-                                <option value="handwerk">Handwerk aller Art</option>
-                                <option value="trockenbau">Trockenbau</option>
-                                <option value="gartenbau">Gartenbau</option>
-                                <option value="bodenverlegung">Bodenverlegung</option>
-                                <option value="reparatur">Reparaturarbeiten</option>
-                                <option value="andere">Andere</option>
+                                <option value="Handwerk aller Art">🔨 Handwerk aller Art</option>
+                                <option value="Trockenbau">🧱 Trockenbau</option>
+                                <option value="Gartenbau">🌿 Gartenbau</option>
+                                <option value="Bodenverlegung">🏠 Bodenverlegung</option>
+                                <option value="Reparaturarbeiten">🔧 Reparaturarbeiten</option>
+                                <option value="Andere/Beratung">💭 Andere/Beratung</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="description">Projektbeschreibung</label>
-                            <textarea id="description" name="description" placeholder="Beschreiben Sie Ihr Projekt..."></textarea>
+                            <label for="message">Projektbeschreibung</label>
+                            <textarea id="message" name="message" placeholder="Beschreiben Sie Ihr Projekt, gewünschte Termine, Budget oder andere wichtige Details..." rows="5"></textarea>
                         </div>
                         
-                        <button type="submit" class="btn">Anfrage senden</button>
+                        <button type="submit" class="btn" id="submit-btn">
+                            <span class="btn-text">Anfrage senden</span>
+                            <span class="btn-loading" style="display:none;">📧 Wird gesendet...</span>
+                        </button>
+                        
+                        <div id="form-status" style="margin-top: 1rem; text-align: center;"></div>
                     </form>
                 </div>
             </div>
@@ -608,17 +689,92 @@
             observer.observe(el);
         });
 
-        // Form submission handler
-        function handleSubmit(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData);
-            
-            // Here you would typically send the data to a server
-            // For a static site, you could use a service like Formspree or Netlify Forms
-            alert('Vielen Dank für Ihre Anfrage! Wir werden uns bald bei Ihnen melden.');
-            event.target.reset();
-        }
+        // Contact form handling - Pure JavaScript (No external dependencies)
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.querySelector('.btn-text');
+            const btnLoading = document.querySelector('.btn-loading');
+            const formStatus = document.getElementById('form-status');
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    btnText.style.display = 'none';
+                    btnLoading.style.display = 'inline';
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.7';
+
+                    // Get form data
+                    const formData = new FormData(form);
+                    const name = formData.get('from_name') || 'Nicht angegeben';
+                    const email = formData.get('from_email') || 'Nicht angegeben';
+                    const phone = formData.get('phone') || 'Nicht angegeben';
+                    const service = formData.get('service') || 'Nicht angegeben';
+                    const message = formData.get('message') || 'Keine Beschreibung';
+
+                    // Create professional email content
+                    const subject = encodeURIComponent(`🏠 Neue Anfrage von Website - ${name}`);
+                    const emailBody = encodeURIComponent(`Hallo F&P Drenica Bau Team,
+
+hier ist eine neue Anfrage von Ihrer Website:
+
+📋 KUNDENDATEN:
+─────────────────────
+👤 Name: ${name}
+📧 E-Mail: ${email}
+📞 Telefon: ${phone}
+🔨 Gewünschte Dienstleistung: ${service}
+
+💬 PROJEKTBESCHREIBUNG:
+─────────────────────
+${message}
+
+───────────────────────────────────────
+Gesendet über F&P Drenica Bau Website
+Datum: ${new Date().toLocaleDateString('de-DE')}
+Uhrzeit: ${new Date().toLocaleTimeString('de-DE')}
+───────────────────────────────────────
+
+Mit freundlichen Grüßen,
+${name}`);
+
+                    // Create mailto link
+                    const mailtoLink = `mailto:fpdrenicabau@gmail.com?subject=${subject}&body=${emailBody}`;
+
+                    // Simulate processing time for better UX
+                    setTimeout(() => {
+                        // Show success message with email button
+                        formStatus.innerHTML = `
+                            <div style="background: #d4edda; color: #155724; padding: 20px; border-radius: 10px; border: 1px solid #c3e6cb; text-align: center;">
+                                <h4 style="margin: 0 0 10px 0;">✅ Anfrage vorbereitet!</h4>
+                                <p style="margin: 0 0 15px 0;">Ihre Anfrage wurde erfolgreich vorbereitet. Klicken Sie jetzt auf den Button, um die E-Mail zu senden:</p>
+                                <a href="${mailtoLink}" class="btn" style="display: inline-block; margin: 10px 0; background: #8b1538; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                                    📧 E-Mail jetzt senden
+                                </a>
+                                <p style="margin: 10px 0 0 0; font-size: 0.9rem; opacity: 0.8;">
+                                    Ihr E-Mail-Programm öffnet sich automatisch mit allen ausgefüllten Daten.
+                                </p>
+                            </div>
+                        `;
+
+                        // Reset button state
+                        btnText.style.display = 'inline';
+                        btnLoading.style.display = 'none';
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = '1';
+
+                        // Clear form after short delay
+                        setTimeout(() => {
+                            form.reset();
+                        }, 1000);
+
+                    }, 1500); // 1.5 second delay for better UX
+                });
+            }
+        });
 
         // Add header background on scroll
         window.addEventListener('scroll', () => {
