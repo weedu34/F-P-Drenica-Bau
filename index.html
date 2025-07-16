@@ -213,32 +213,94 @@
 
         .service-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+            height: 280px;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .service-icon {
-            font-size: 3rem;
-            color: #8b1538;
-            margin-bottom: 1rem;
+        .service-card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 140px;
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover .service-card-bg {
+            filter: blur(0.5px);
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        .service-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 140px;
+            background: linear-gradient(45deg, rgba(139, 21, 56, 0.8), rgba(44, 44, 44, 0.6));
+        }
+
+        .service-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            padding-top: 1.5rem;
+            background: white;
+            margin-top: 140px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .service-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 1rem;
             color: #2c2c2c;
+            font-weight: bold;
         }
 
         .service-card p {
             color: #666;
             line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Background images for each service */
+        .service-handwerk .service-card-bg {
+            background-image: url('images/services/handwerk.jpg');
+        }
+
+        .service-trockenbau .service-card-bg {
+            background-image: url('images/services/trockenbau.jpg');
+        }
+
+        .service-gartenbau .service-card-bg {
+            background-image: url('images/services/gartenbau.jpg');
+        }
+
+        .service-bodenverlegung .service-card-bg {
+            background-image: url('images/services/bodenverlegung.jpg');
+        }
+
+        .service-reparatur .service-card-bg {
+            background-image: url('images/services/reparatur.jpg');
         }
 
         /* Gallery Section */
@@ -478,7 +540,6 @@
                 <li><a href="#home">Startseite</a></li>
                 <li><a href="#about">Über uns</a></li>
                 <li><a href="#services">Leistungen</a></li>
-                <li><a href="#gallery">Galerie</a></li>
                 <li><a href="#contact">Kontakt</a></li>
             </ul>
             <div class="hamburger" onclick="toggleMenu()">
@@ -519,59 +580,49 @@
         <div class="container">
             <h2 class="section-title fade-in">Unsere Dienstleistungen</h2>
             <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">🔨</div>
-                    <h3>Handwerk aller Art</h3>
-                    <p>Allgemeine handwerkliche Arbeiten für Ihr Zuhause mit höchster Präzision und Qualität.</p>
+                <div class="service-card service-handwerk fade-in">
+                    <div class="service-card-bg"></div>
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <h3>Handwerk aller Art</h3>
+                        <p>Allgemeine handwerkliche Arbeiten für Ihr Zuhause mit höchster Präzision und Qualität.</p>
+                    </div>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">🧱</div>
-                    <h3>Trockenbau</h3>
-                    <p>Professioneller Innenausbau und Errichtung von Trennwänden nach Ihren individuellen Wünschen.</p>
+                
+                <div class="service-card service-trockenbau fade-in">
+                    <div class="service-card-bg"></div>
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <h3>Trockenbau</h3>
+                        <p>Professioneller Innenausbau und Errichtung von Trennwänden nach Ihren individuellen Wünschen.</p>
+                    </div>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">🌿</div>
-                    <h3>Gartenbau</h3>
-                    <p>Gestaltung und Pflege von Außenanlagen – verwandeln Sie Ihren Garten in eine Wohlfühloase.</p>
+                
+                <div class="service-card service-gartenbau fade-in">
+                    <div class="service-card-bg"></div>
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <h3>Gartenbau</h3>
+                        <p>Gestaltung und Pflege von Außenanlagen – verwandeln Sie Ihren Garten in eine Wohlfühloase.</p>
+                    </div>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">🏠</div>
-                    <h3>Bodenverlegung</h3>
-                    <p>Verlegen von Parkett, Laminat, Fliesen und anderen Bodenbelägen mit handwerklicher Perfektion.</p>
+                
+                <div class="service-card service-bodenverlegung fade-in">
+                    <div class="service-card-bg"></div>
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <h3>Bodenverlegung</h3>
+                        <p>Verlegen von Parkett, Laminat, Fliesen und anderen Bodenbelägen mit handwerklicher Perfektion.</p>
+                    </div>
                 </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">🔧</div>
-                    <h3>Reparaturarbeiten</h3>
-                    <p>Reparaturen und weitere Leistungen auf Anfrage – wir lösen Ihre Bauprobleme zuverlässig.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title fade-in">Projekt-Galerie</h2>
-            <div class="gallery-grid">
-                <!-- You can replace these placeholders with real images when you upload them -->
-                <div class="gallery-item fade-in">
-                    <!-- Example: <img src="images/gallery/trockenbau1.jpg" alt="Trockenbau Projekt"> -->
-                    <div class="gallery-placeholder">Trockenbau-Projekt<br>Vorher/Nachher</div>
-                </div>
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">Gartenbau-Projekt<br>Komplettgestaltung</div>
-                </div>
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">Bodenverlegung<br>Wohnbereich</div>
-                </div>
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">Renovierung<br>Innenbereich</div>
-                </div>
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">Handwerksarbeiten<br>Außenbereich</div>
-                </div>
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">Reparaturarbeiten<br>Verschiedene Projekte</div>
+                
+                <div class="service-card service-reparatur fade-in">
+                    <div class="service-card-bg"></div>
+                    <div class="service-card-overlay"></div>
+                    <div class="service-card-content">
+                        <h3>Reparaturarbeiten</h3>
+                        <p>Reparaturen und weitere Leistungen auf Anfrage – wir lösen Ihre Bauprobleme zuverlässig.</p>
+                    </div>
                 </div>
             </div>
         </div>
